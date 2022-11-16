@@ -1,0 +1,105 @@
+:root {
+  --gap: 20px;
+}
+a {
+  text-decoration: none;
+  color: black;
+}
+body {
+  max-width: 1400px;
+  margin: 0 auto;
+  background-color: whitesmoke;
+}
+
+.header {
+  text-align: center;
+  padding: var(--gap);
+}
+
+.header-menu {
+  text-align: end;
+}
+
+button {
+  background-color: lightgreen;
+  color: white;
+  font-weight: bold;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 12px;
+  font-size: 18px;
+}
+button a {
+  color: white;
+  font-weight: bold;
+}
+
+.all-time {
+  padding-bottom: var(--gap);
+}
+.all-time input {
+  text-align: end;
+}
+
+.year-month {
+  display: inline-block;
+  color: white;
+  /* border: 1px solid black; */
+  padding: var(--gap);
+  font-size: 20px;
+  background-color: lightskyblue;
+  border-radius: 12px;
+}
+
+.dates {
+  /* border: 1px solid black; */
+  display: flex;
+  gap: var(--gap);
+  flex-direction: row;
+  padding-top: var(--gap);
+  padding-bottom: var(--gap);
+}
+.dates div {
+  /* border: 1px solid black; */
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  line-height: 50px;
+  /* padding: var(--gap); */
+  border-radius: 50%;
+  background-color: lightcoral;
+  color: white;
+}
+
+.exercise table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.exercise th {
+  border: 1px solid black;
+}
+.exercise td {
+  padding: 0;
+  height: 30px;
+  text-align: center;
+  border: 1px solid black;
+}
+
+.inputText {
+  width: 100%;
+  text-align: center;
+  padding: 0;
+  border-width: 0;
+  height: 30px;
+}
+.addBtn {
+  text-align: center;
+}
+.addBtn button {
+  cursor: pointer;
+  background-color: lightblue;
+}
+.saveBtn {
+  float: right;
+}

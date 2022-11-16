@@ -1,26 +1,37 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { useRecoilState } from "recoil";
-import { workoutAtom } from "../../atom";
+import React, { useState, useEffect } from "react";
+import Dates from "../../components/Dates";
+
+// import { workoutAtom } from "../../atom";
+
+export interface IYearMonth {
+  id: number;
+  year: number;
+  month: number;
+}
 
 const Home = () => {
-  const [workouts, setWorkouts] = useRecoilState(workoutAtom);
+  const [yearMonths, setyearMonths] = useState<IYearMonth[]>([]);
+
+  useEffect(() => {
+    fetch("http://localhost:3001/yearMonth")
+      .then((res) => res.json())
+      .then((data) => {
+        setyearMonths(data);
+      });
+  }, []);
 
   return (
     <div>
-      <h1>운동 일지</h1>
-      <button>
-        <Link to="/newpost">추가하기</Link>
-      </button>
-      <ol>
-        {workouts.map((workout) => (
-          <li key={workout.id}>
-            <Link to={{ pathname: `/post/${workout.id}` }}>
-              {workout.title}
-            </Link>
-          </li>
-        ))}
-      </ol>
+      {yearMonths.map((yearMonth) => (
+        <div key={yearMonth.id}>
+          <div className="year-month">
+            {yearMonth.year}년 {yearMonth.month}월
+          </div>
+          <div className="dates">
+            <Dates yearMonth={yearMonth} />
+          </div>
+        </div>
+      ))}
     </div>
   );
 };

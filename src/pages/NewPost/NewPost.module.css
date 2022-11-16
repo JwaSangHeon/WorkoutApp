@@ -1,0 +1,36 @@
+.meal table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.meal th {
+  border: 1px solid black;
+}
+.meal td {
+  padding: 0;
+  text-align: center;
+  border: 1px solid black;
+}
+
+.exercise table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.exercise th {
+  border: 1px solid black;
+}
+.exercise td {
+  padding: 0;
+  height: 30px;
+  text-align: center;
+  border: 1px solid black;
+}
+
+.inputText {
+  width: 100%;
+  text-align: center;
+  padding: 0;
+  border-width: 0;
+  height: 30px;
+}

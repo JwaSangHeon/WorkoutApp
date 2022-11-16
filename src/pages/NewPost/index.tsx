@@ -1,4 +1,7 @@
-import React, { useState, useRef } from "react";
+import React from "react";
+import Exercise from "../../components/Exercise";
+import styles from "./NewPost.module.css";
+import { useState } from "react";
 import { workoutAtom } from "../../atom";
 import { useRecoilState } from "recoil";
 
@@ -7,44 +10,107 @@ const onGetDay = (date: Date): string => {
   return allDays[date.getDay()];
 };
 
+interface IMeal {
+  id: number;
+  breakfast: string;
+  lunch: string;
+  dinner: string;
+  etc: string;
+}
+
 const NewPost = () => {
   const today = new Date();
   const day = onGetDay(today);
 
-  const [workouts, setWorkouts] = useState(workoutAtom);
+  const [workout, setWorkout] = useRecoilState(workoutAtom);
 
-  const nextId = useRef(1);
+  const [meal, setMeal] = useState<IMeal>({
+    id: 0,
+    breakfast: "",
+    lunch: "",
+    dinner: "",
+    etc: "",
+  });
+
+  const { breakfast, lunch, dinner, etc } = meal;
+
+  const onChangeMeal = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value, name } = e.target;
+    setMeal({
+      ...meal,
+      [name]: value,
+    });
+    setWorkout({
+      ...workout,
+      meal,
+    });
+  };
 
   const onSubmitForm = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.dir(e.target);
-    // const workout = {
-    //   id: nextId.current,
-    //   title:
-    // };
-    // setWorkouts();
+    console.log(workout);
   };
 
   return (
     <div>
-      <h1>
-        운동일지 - {today.getFullYear()}년 {today.getMonth() + 1}월
-        {today.getDate()}일 {day}요일
-      </h1>
       <form onSubmit={onSubmitForm}>
-        <label>
-          오늘의 식사 <input type="text" name="meal" required />
-        </label>
-        <label>
-          운동 부위 <input type="text" name="part" required />
-        </label>
-        <label>
-          운동 세트 <input type="text" name="set" required />
-        </label>
-        <label>
-          운동 시간 <input type="text" name="time" required />
-        </label>
-        <button>저장하기</button>
+        <h1>
+          {today.getFullYear()}년 {today.getMonth() + 1}월{today.getDate()}일{" "}
+          {day}요일
+        </h1>
+        <div className={styles.meal}>
+          <h2>식사</h2>
+          <table>
+            <tbody>
+              <tr>
+                <th>아침</th>
+                <th>점심</th>
+                <th>저녁</th>
+                <th>그 외</th>
+              </tr>
+              <tr>
+                <td>
+                  <input
+                    type="text"
+                    className="inputText"
+                    onChange={onChangeMeal}
+                    name="breakfast"
+                    value={breakfast}
+                  />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    className="inputText"
+                    onChange={onChangeMeal}
+                    name="lunch"
+                    value={lunch}
+                  />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    className="inputText"
+                    onChange={onChangeMeal}
+                    name="dinner"
+                    value={dinner}
+                  />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    className="inputText"
+                    onChange={onChangeMeal}
+                    value={etc}
+                    name="etc"
+                  />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <Exercise />
+        <button className="saveBtn">저장하기</button>
       </form>
     </div>
   );
